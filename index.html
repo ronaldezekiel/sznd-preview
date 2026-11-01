@@ -1452,9 +1452,9 @@ input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webki
           <p class="option__label">Color: <span class="muted">brown</span></p>
           <ul class="colors__list">
             <li><span class="colors__item is-current" aria-current="true" style="position:relative"><img class="pv-img" src="img/card-03.jpg" alt="" loading="lazy" decoding="async"></span></li>
-            <li><a class="colors__item" href="#product" title="black" style="position:relative"><img class="pv-img" src="img/card-08.jpg" alt="" loading="lazy"></a></li>
-            <li><a class="colors__item" href="#product" title="off white" style="position:relative"><img class="pv-img" src="img/card-02.jpg" alt="" loading="lazy"></a></li>
-            <li><a class="colors__item" href="#product" title="acid wash" style="position:relative"><img class="pv-img" src="img/card-04.jpg" alt="" loading="lazy"></a></li>
+            <li><a class="colors__item" href="#product/hoodie-black" title="black" style="position:relative"><img class="pv-img" src="img/card-08.jpg" alt="" loading="lazy"></a></li>
+            <li><a class="colors__item" href="#product/waffle-off" title="off white" style="position:relative"><img class="pv-img" src="img/card-02.jpg" alt="" loading="lazy"></a></li>
+            <li><a class="colors__item" href="#product/sweat-wash" title="acid wash" style="position:relative"><img class="pv-img" src="img/card-04.jpg" alt="" loading="lazy"></a></li>
           </ul>
         </div>
         <div class="variant-picker">
@@ -1486,9 +1486,9 @@ input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webki
         <div class="pair">
           <p class="option__label">Wear it with</p>
           <div class="pair__card">
-            <a class="pair__img" href="#product" style="position:relative"><img class="pv-img" src="img/card-08.jpg" alt="" loading="lazy" decoding="async"></a>
+            <a class="pair__img" href="#product/sweat-black" style="position:relative"><img class="pv-img" src="img/card-08.jpg" alt="" loading="lazy" decoding="async"></a>
             <div class="pair__info">
-              <a class="card__title" href="#product">Sweatpants [name TBD]</a>
+              <a class="card__title" href="#product/sweat-black">Sweatpants [name TBD]</a>
               <div class="price"><span class="price__current">₹2,399.00</span></div>
               <form class="pair__form" data-ajax-cart="true" method="post" action="/cart/add">
                 <input type="hidden" name="pv_product" value="sweat-black">
@@ -1796,17 +1796,17 @@ window.PV_ICONS={"plus": "<svg class=\"icon icon--plus\" viewBox=\"0 0 24 24\" w
         }).join('') + '</form></div>';
     }
     return '<article class="card" data-reveal data-type="' + p.type + '" data-color="' + p.color + '" data-price="' + p.price + '">' +
-      '<div class="card__media"><a href="#product" class="card__link" aria-label="' + p.name + '" tabindex="-1">' +
+      '<div class="card__media"><a href="#product/' + p.id + '" class="card__link" aria-label="' + p.name + '" tabindex="-1">' +
       frame(p, 'card__img', 'model shot') + frame(p, 'card__img card__img--alt') + '</a>' + quick + '</div>' +
       '<div class="card__info"><span class="tags"><span class="tag' + (p.tag[1] ? ' tag--' + p.tag[1] : '') + '">' + p.tag[0] + '</span></span>' +
-      '<div class="card__row">' + (typeof n === 'number' ? '<span class="card__num">' + ('0' + (n + 1)).slice(-2) + '</span>' : '') + '<h3 class="card__title"><a href="#product">' + p.name + '</a></h3><div class="price"><span class="price__current">' + money(p.price) + '</span></div></div><p class="card__line">the story in one line [TBD]</p>' + (p.sold ? '<span class="card__buy card__buy--off">Gone for this season</span>' : '<button type="button" class="card__buy" data-quick-toggle aria-expanded="false" data-added="Added"><span class="card__buy-a">' + 'Add to bag' + '</span><span class="card__buy-b" aria-hidden="true">Pick your size</span></button>') + '</div></article>';
+      '<div class="card__row">' + (typeof n === 'number' ? '<span class="card__num">' + ('0' + (n + 1)).slice(-2) + '</span>' : '') + '<h3 class="card__title"><a href="#product/' + p.id + '">' + p.name + '</a></h3><div class="price"><span class="price__current">' + money(p.price) + '</span></div></div><p class="card__line">the story in one line [TBD]</p>' + (p.sold ? '<span class="card__buy card__buy--off">Gone for this season</span>' : '<button type="button" class="card__buy" data-quick-toggle aria-expanded="false" data-added="Added"><span class="card__buy-a">' + 'Add to bag' + '</span><span class="card__buy-b" aria-hidden="true">Pick your size</span></button>') + '</div></article>';
   }
 
   document.querySelectorAll('[data-cards]').forEach(function (el) { el.innerHTML = P.map(function (p, i) { return card(p, i); }).join(''); });
   var idx = document.querySelector('[data-pv-index]');
   if (idx) {
     idx.innerHTML = P.map(function (p, i) {
-      return '<li style="--i: ' + i + '"><a class="index__link" href="#product" data-index-item="' + i + '"><span class="index__num">' + ('0' + (i + 1)).slice(-2) + '</span><span class="index__name">' + p.name.replace(' [name TBD]', '') + ', ' + p.color + '</span><span class="index__price">' + money(p.price) + '</span></a></li>';
+      return '<li style="--i: ' + i + '"><a class="index__link" href="#product/' + p.id + '" data-index-item="' + i + '"><span class="index__num">' + ('0' + (i + 1)).slice(-2) + '</span><span class="index__name">' + p.name.replace(' [name TBD]', '') + ', ' + p.color + '</span><span class="index__price">' + money(p.price) + '</span></a></li>';
     }).join('');
     document.querySelector('[data-pv-index-media]').innerHTML = P.map(function (p, i) { return '<img class="index__img" src="img/' + p.img + '.jpg" alt="" loading="lazy" data-index-media="' + i + '">'; }).join('');
   }
@@ -1830,8 +1830,8 @@ window.PV_ICONS={"plus": "<svg class=\"icon icon--plus\" viewBox=\"0 0 24 24\" w
         var p = byId[l.id];
         total += p.price * l.qty;
         pre = true;
-        return '<li class="mini-line" data-line="' + (i + 1) + '"><a class="mini-line__img" href="#product" style="position:relative">' + frame(p) + '</a>' +
-          '<div class="mini-line__info"><a class="mini-line__title" href="#product">' + p.name + '</a><p class="muted">' + p.color + ' / ' + l.size + '</p>' +
+        return '<li class="mini-line" data-line="' + (i + 1) + '"><a class="mini-line__img" href="#product/' + p.id + '" style="position:relative">' + frame(p) + '</a>' +
+          '<div class="mini-line__info"><a class="mini-line__title" href="#product/' + p.id + '">' + p.name + '</a><p class="muted">' + p.color + ' / ' + l.size + '</p>' +
           '' +
           '<div class="stepper"><button type="button" class="stepper__btn" data-cart-qty="' + (l.qty - 1) + '" aria-label="Remove one">&minus;</button><span class="stepper__val">' + l.qty + '</span><button type="button" class="stepper__btn" data-cart-qty="' + (l.qty + 1) + '" aria-label="Add one">+</button></div></div>' +
           '<div class="mini-line__end"><span class="price">' + money(p.price * l.qty) + '</span><button type="button" class="mini-line__remove" data-cart-qty="0">Remove</button></div></li>';
@@ -1880,7 +1880,7 @@ window.PV_ICONS={"plus": "<svg class=\"icon icon--plus\" viewBox=\"0 0 24 24\" w
       var hits = P.filter(function (p) { return (p.name + ' ' + p.color).toLowerCase().indexOf(q) > -1; }).slice(0, 4);
       var html = hits.length
         ? '<ul class="predictive__list">' + hits.map(function (p) {
-            return '<li><a class="predictive__item" href="#product"><span class="predictive__img" style="position:relative;display:block">' + frame(p) + '</span><span><span class="card__title">' + p.name + ' &ndash; ' + p.color + '</span><br><span class="price">' + money(p.price) + '</span></span></a></li>';
+            return '<li><a class="predictive__item" href="#product/' + p.id + '"><span class="predictive__img" style="position:relative;display:block">' + frame(p) + '</span><span><span class="card__title">' + p.name + ' &ndash; ' + p.color + '</span><br><span class="price">' + money(p.price) + '</span></span></a></li>';
           }).join('') + '</ul><a class="link-arrow" href="#search/' + encodeURIComponent(q) + '">See all results ' + I.arrow + '</a>'
         : '<p class="muted">Nothing found for "' + q + '".</p>';
       return Promise.resolve(new Response('<div class="shopify-section">' + html + '</div>'));
@@ -1919,8 +1919,8 @@ window.PV_ICONS={"plus": "<svg class=\"icon icon--plus\" viewBox=\"0 0 24 24\" w
     var total = 0;
     el.innerHTML = '<ul class="cart-lines">' + cart.map(function (l) {
       var p = byId[l.id]; total += p.price * l.qty;
-      return '<li class="cart-line"><a class="cart-line__img" href="#product" style="position:relative">' + frame(p) + '</a>' +
-        '<div class="cart-line__info"><a class="cart-line__title" href="#product">' + p.name + '</a><p class="muted">' + p.color + ' / ' + l.size + '</p></div>' +
+      return '<li class="cart-line"><a class="cart-line__img" href="#product/' + p.id + '" style="position:relative">' + frame(p) + '</a>' +
+        '<div class="cart-line__info"><a class="cart-line__title" href="#product/' + p.id + '">' + p.name + '</a><p class="muted">' + p.color + ' / ' + l.size + '</p></div>' +
         '<div class="cart-line__qty"><input class="qty__input" type="number" value="' + l.qty + '" min="0" aria-label="Quantity" readonly></div>' +
         '<div class="cart-line__price">' + money(p.price * l.qty) + '</div></li>';
     }).join('') + '</ul><form class="cart-summary" data-pv-checkout><div class="cart-summary__total"><span>Subtotal</span><strong>' + money(total) + '</strong></div><p class="muted small">Shipping and taxes are calculated at checkout.</p><button type="submit" class="btn btn--block">Checkout</button></form>';
@@ -1935,6 +1935,27 @@ window.PV_ICONS={"plus": "<svg class=\"icon icon--plus\" viewBox=\"0 0 24 24\" w
     });
     document.querySelector('[data-pv-search-count]').textContent = t ? (n ? n + ' result' + (n === 1 ? '' : 's') + ' for "' + q + '"' : 'Nothing found for "' + q + '".') : 'Try "hoodie", "black" or "tee".';
   }
+
+  function fillProduct(id) {
+    var p = byId[id] || byId['hoodie-brown'];
+    var v = document.querySelector('.view[data-view="product"]');
+    var i = P.indexOf(p);
+    var q = function (sel) { return v.querySelector(sel); };
+    q('.product__info .label').textContent = 'season 01 · no. ' + ('0' + (i + 1)).slice(-2);
+    q('.product__title').innerHTML = TYPE[p.type] + ' <em>[name TBD]</em>';
+    q('[data-price]').textContent = money(p.price);
+    var c = q('.colors .option__label .muted'); if (c) c.textContent = p.color;
+    var cur = q('.colors__item.is-current img'); if (cur) cur.src = 'img/' + p.img + '.jpg';
+    var g = v.querySelectorAll('.gallery__item img');
+    if (g[0]) g[0].src = 'img/' + p.img + '.jpg';
+    if (g[1]) g[1].src = 'img/' + p.alt + '.jpg';
+    var lb = v.querySelectorAll('.lightbox__item img');
+    if (lb[0]) lb[0].src = 'img/' + p.img + '.jpg';
+    if (lb[1]) lb[1].src = 'img/' + p.alt + '.jpg';
+    var sb = q('.sticky-buy');
+    if (sb) { sb.querySelector('img').src = 'img/' + p.img + '.jpg'; sb.querySelector('.card__title').textContent = p.name; sb.querySelector('[data-sticky-price]').textContent = money(p.price); }
+    document.title = p.name + ' – sznd.';
+  }
   function show() {
     var parts = (location.hash || '#home').slice(1).split('/');
     var name = parts[0] || 'home';
@@ -1942,6 +1963,7 @@ window.PV_ICONS={"plus": "<svg class=\"icon icon--plus\" viewBox=\"0 0 24 24\" w
     if (name === 'shop') filterShop(parts[1] || '');
     if (name === 'policy') fillPolicy(parts[1] || 'shipping');
     if (name === 'bag') fillBag();
+    if (name === 'product') fillProduct(parts[1] || 'hoodie-brown');
     if (name === 'search') runSearch(decodeURIComponent(parts[1] || ''));
     document.querySelectorAll('.view[data-view]').forEach(function (v) { v.hidden = v.getAttribute('data-view') !== name; });
     document.body.setAttribute('data-pv', name);
