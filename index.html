@@ -26,7 +26,10 @@ html[data-brand='none'] .brand-mark, html[data-brand='none'] .intro__sym { displ
 /* ---------- Opening screen with a mark ----------
    The mark draws itself (each brand its own way), the wordmark comes in under it,
    then the screen opens from the centre of the mark onto the hero. Same 2.4s as before. */
-.intro__sym { display: block; position: relative; width: var(--m); margin: 0 auto calc(var(--m) * 0.16); color: inherit; }
+.intro__sym { display: block; position: relative; width: var(--m); flex: none; margin: 0 0 calc(var(--m) * 0.16); color: inherit; }
+/* The mark is wider than the wordmark: stack both on one centre line so the pair sits in the middle of the screen */
+html:not([data-brand='none']) .intro__mark { width: var(--m); display: flex; flex-direction: column; align-items: center; }
+html:not([data-brand='none']) .intro__mark .logo-svg { width: var(--w); flex: none; }
 .intro__sym .brand-mark { width: 100%; }
 html:not([data-brand='none']) .intro { --w: min(34vw, 150px); --m: min(40vw, 190px); }
 html:not([data-brand='none']) .intro__mark .logo-svg { animation: introIn 0.6s var(--ease) 0.5s both, introOut 0.35s ease-in 1.15s forwards; }
@@ -2393,6 +2396,13 @@ window.PV_ICONS={"plus": "<svg class=\"icon icon--plus\" viewBox=\"0 0 24 24\" w
   /* ---------- The dot opens the site: tidy up once it has played ---------- */
   var intro = document.querySelector('[data-intro]');
   if (intro) {
+    /* With a mark, the screen opens from the heart of the mark, wherever it sits */
+    var introSym = document.documentElement.getAttribute('data-brand') !== 'none' && intro.querySelector('.intro__sym .brand-mark');
+    if (introSym) {
+      var sr = introSym.getBoundingClientRect(), scs = getComputedStyle(introSym);
+      var ox = parseFloat(scs.getPropertyValue('--ox')) || 50, oy = parseFloat(scs.getPropertyValue('--oy')) || 50;
+      if (sr.width) { intro.style.setProperty('--dx', (sr.left + sr.width * ox / 100) + 'px'); intro.style.setProperty('--dy', (sr.top + sr.height * oy / 100) + 'px'); }
+    }
     var introTimer = setTimeout(function () { intro.remove(); }, 2600);
     var skipIntro = function () {
       clearTimeout(introTimer);
