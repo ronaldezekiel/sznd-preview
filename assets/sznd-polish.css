@@ -136,3 +136,49 @@ html[data-brand='none'] .about-hero::before { display: none; }
   content: ""; position: absolute; left: 62%; top: 58%; width: 120%; aspect-ratio: var(--mark-ar, 1); transform: translate(-50%, -50%);
   background: #F7F4EE; opacity: 0.1; -webkit-mask: var(--brand-mark) center / contain no-repeat; mask: var(--brand-mark) center / contain no-repeat;
 }
+
+/* ---------- 8. About: the story on the first screen ---------- */
+.about-hero:has(.about-hero__intro) { display: flex; flex-direction: column; justify-content: flex-end; height: auto; min-height: calc(100svh - var(--announce-h, 34px)); }
+.about-hero:has(.about-hero__intro):has(.about-hero__img)::after {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(180deg, transparent 30%, rgba(30, 26, 23, 0.72) 100%);
+}
+.about-hero__intro {
+  position: relative; z-index: 2; width: 100%; box-sizing: border-box;
+  padding: max(36svh, 300px) var(--gutter) clamp(28px, 4vw, 56px);
+  display: grid; gap: clamp(28px, 4vw, 48px); color: var(--about-logo, #F7F4EE);
+}
+@media (min-width: 990px) {
+  .about-hero__intro { grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); column-gap: clamp(40px, 7vw, 120px); align-items: end; padding-top: max(40svh, 340px); }
+}
+.about-hero__eyebrow { margin: 0 0 18px; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.72; }
+.about-hero__eyebrow::before { content: ""; display: inline-block; width: 28px; height: 1px; margin-right: 12px; vertical-align: middle; background: currentColor; opacity: 0.6; }
+.about-hero__heading { margin: 0; font-family: var(--font-serif); font-weight: 400; font-size: clamp(2.3rem, 4.4vw, 4.4rem); line-height: 1.02; letter-spacing: -0.015em; text-wrap: balance; }
+.about-hero__heading em { color: color-mix(in srgb, var(--brand-season, #F7F4EE) 45%, #F7F4EE); }
+html[data-brand='none'] .about-hero__heading em { color: inherit; }
+.about-hero__lead { max-width: 46ch; margin: 18px 0 0; font-size: clamp(15px, 1.25vw, 17px); line-height: 1.55; opacity: 0.88; text-wrap: pretty; }
+.about-hero__lines { list-style: none; margin: 0; padding: 0; display: grid; }
+.about-hero__line { display: grid; grid-template-columns: 28px minmax(0, 1fr); column-gap: 12px; padding: 14px 0; border-top: 1px solid color-mix(in srgb, currentColor 24%, transparent); }
+.about-hero__line:last-child { border-bottom: 1px solid color-mix(in srgb, currentColor 24%, transparent); }
+.about-hero__num { font-size: 11px; letter-spacing: 0.08em; padding-top: 3px; font-variant-numeric: tabular-nums; color: color-mix(in srgb, var(--brand-season, #F7F4EE) 45%, #F7F4EE); }
+.about-hero__line-label { display: block; margin-bottom: 4px; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.72; }
+.about-hero__line-text { margin: 0; font-size: 14px; line-height: 1.5; opacity: 0.92; text-wrap: pretty; }
+@media (max-width: 749px) {
+  .about-hero__intro { padding-top: max(32svh, 230px); }
+  .about-hero:has(.about-hero__intro):has(.about-hero__img)::after { background: linear-gradient(180deg, rgba(30, 26, 23, 0.1) 18%, rgba(30, 26, 23, 0.8) 52%, rgba(30, 26, 23, 0.86) 100%); }
+  .about-hero__line { padding: 11px 0; }
+}
+/* Over a photo, the three lines sit on a soft dark glass so they stay readable. */
+.about-hero:has(.about-hero__img) .about-hero__lines { padding: 6px 18px; border-radius: 4px; background: rgba(30, 26, 23, 0.42); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+.about-hero:has(.about-hero__img) .about-hero__line:last-child { border-bottom: 0; }
+html[data-photos="off"] .about-hero .about-hero__lines { padding: 0; background: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+html[data-photos="off"] .about-hero .about-hero__line:last-child { border-bottom: 1px solid color-mix(in srgb, currentColor 24%, transparent); }
+/* Opening: lines rise in one after another, the mark grows in, the rules draw across. */
+@media (prefers-reduced-motion: no-preference) {
+  .about-hero__intro > * > *, .about-hero__line { animation: aboutRise 1s cubic-bezier(.2,.7,.1,1) both; animation-delay: calc(350ms + var(--i, 0) * 110ms); }
+  .about-hero__line { border-top-color: transparent; position: relative; }
+  .about-hero__line::before { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: color-mix(in srgb, currentColor 24%, transparent); transform-origin: 0 50%; animation: aboutRule 1.2s cubic-bezier(.65,0,.2,1) both; animation-delay: calc(500ms + var(--i, 0) * 110ms); }
+  .about-hero:has(.about-hero__intro)::before { animation: wallIn 2.4s cubic-bezier(.2,.7,.1,1) both, wallBreath 16s ease-in-out 2.4s infinite alternate; }
+  @keyframes aboutRise { from { opacity: 0; transform: translateY(18px); } }
+  @keyframes aboutRule { from { transform: scaleX(0); } }
+}
