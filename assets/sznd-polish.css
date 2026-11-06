@@ -1,0 +1,99 @@
+/* ==========================================================================
+   sznd. polish layer (v8)
+   Loaded after the theme's own CSS. Same file in the Shopify theme
+   (assets/sznd-polish.css) and the hosted preview (assets/sznd-polish.css).
+   Quiet on purpose: type, rhythm, page-to-page motion, small feedback.
+   ========================================================================== */
+
+/* ---------- 1. Type: finer setting, no new fonts ---------- */
+html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; font-kerning: normal; }
+body { font-feature-settings: "kern" 1, "liga" 1; hanging-punctuation: first allow-end; }
+h1, h2, h3, .hero__heading, .bar__title, .statement__heading, .word__text, .product__title,
+.collection-head__title, .spread__heading, .signup__heading, .footer__tagline, .page__title { text-wrap: balance; }
+p, li, .card__line, .rte, .product__story { text-wrap: pretty; }
+.price, .price__current, .card__num, .index__num, .index__price, .bar__count, .toolbar__count,
+.cart-summary__total, .stepper__val, [data-price], [data-sticky-price], [data-cd-time] { font-variant-numeric: tabular-nums lining-nums; }
+/* Big serif lines sit a touch tighter, like set type. */
+.hero__heading, .statement__heading, .word__text, .bar__title, .collection-head__title { letter-spacing: -0.015em; }
+/* Italic accents in the serif get a hair of room so they don't crash the next word. */
+.hero__heading em, .product__title em, .spread__heading em { padding-right: 0.04em; }
+
+/* ---------- 2. Product cards: steady rows ---------- */
+/* Title sits next to its number, price holds the right edge. Before, the title floated
+   in the middle of the row when the number was present. */
+.card__row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: baseline; column-gap: 10px; }
+.card__row > .card__num { margin-right: 0; }
+.card__row > .card__title { min-width: 0; }
+.card__row:not(:has(.card__num)) { grid-template-columns: minmax(0, 1fr) auto; }
+@media (max-width: 749px) {
+  .card__row:has(.card__num) { grid-template-columns: auto minmax(0, 1fr); }
+  .card__row:has(.card__num) > .price { grid-column: 2; }
+}
+/* Every card keeps the same badge line, so titles line up across a row with or without "New". */
+.card__info > .tags { min-height: 15px; margin-bottom: 2px; align-items: flex-end; }
+.card__info > .tags:empty { display: flex; }
+.card__line { color: color-mix(in srgb, var(--text) 62%, var(--bg)); }
+
+/* Add to bag: a slow fill rises from the bottom instead of a hard flip. */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  html.js .card__buy:not(.card__buy--off) { --sweep: var(--text); }
+  html.js.look-brown .card__buy:not(.card__buy--off) { --sweep: var(--brown); }
+  html.js .card__buy:not(.card__buy--off),
+  html.js .card__buy:not(.card__buy--off):hover,
+  html.js .card.is-choosing .card__buy, html.js .card.is-added .card__buy {
+    background-color: transparent;
+    background-image: linear-gradient(var(--sweep), var(--sweep));
+    background-repeat: no-repeat; background-position: 50% 100%;
+    transition: background-size 0.55s cubic-bezier(.2,.7,.1,1), color 0.35s ease, border-color 0.35s ease;
+  }
+  html.js .card__buy:not(.card__buy--off) { background-size: 100% 0%; }
+  html.js .card__buy:not(.card__buy--off):hover, html.js .card.is-choosing .card__buy, html.js .card.is-added .card__buy { background-size: 100% 100%; }
+}
+.card__buy:active, .btn:active { transform: translateY(1px); }
+
+/* ---------- 3. Rhythm: fewer empty screens ---------- */
+/* Ron: no big white gaps. Trim the tallest paddings, keep air. */
+.word { padding-block: clamp(64px, 8vw, 128px); }
+.word__label { margin-bottom: clamp(20px, 2.6vw, 32px); }
+.statement { padding-top: clamp(56px, 8vw, 128px); }
+.spread { padding-block: clamp(56px, 7vw, 112px) 0; }
+.signup { padding: clamp(56px, 8vw, 120px) var(--gutter) clamp(48px, 6vw, 96px); }
+.page--after-hero { padding-top: clamp(40px, 5vw, 80px); }
+/* The "made after you order" note next to season 01 stays on one line. */
+.note--bar { max-width: none; white-space: nowrap; }
+
+/* ---------- 4. Small honesty in states ---------- */
+.view-toggle__btn[aria-pressed="false"] { color: var(--muted); opacity: 1; }
+.view-toggle__btn[aria-pressed="false"]:hover { color: var(--text); }
+:focus-visible { outline-width: 2px; outline-style: solid; outline-offset: 3px; border-radius: 2px; }
+.card__media:focus-within { outline: none; }
+::selection { background: var(--brown, #6E4535); color: var(--on-brown, #F7F4EE); }
+@media (pointer: coarse) {
+  .size-option, .option__btn, .quick-add__size, .stepper__btn { min-height: 44px; min-width: 44px; }
+}
+
+/* ---------- 5. Reading line on journal posts ---------- */
+.read-line { display: none; }
+.template-article .read-line { display: block; position: fixed; left: 0; top: 0; z-index: 80; height: 2px; width: 100%; transform-origin: 0 50%; transform: scaleX(var(--read, 0)); background: var(--brand-season, var(--accent)); pointer-events: none; }
+@supports (animation-timeline: scroll()) {
+  .read-line { animation: readLine linear both; animation-timeline: scroll(root); }
+  @keyframes readLine { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+}
+
+/* ---------- 6. Page to page: a quiet cross-fade, the photo carries over ---------- */
+/* Shopify: same-origin page loads use cross-document view transitions where the browser
+   supports them (Chrome, Edge, Safari 18.2+). Everyone else gets a normal page load. */
+@view-transition { navigation: auto; }
+.site-header { view-transition-name: szn-header; }
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) { animation: 220ms cubic-bezier(.4,0,1,1) both sznOut; }
+  ::view-transition-new(root) { animation: 520ms cubic-bezier(.2,.7,.1,1) 60ms both sznIn; }
+  ::view-transition-group(szn-photo) { animation-duration: 620ms; animation-timing-function: cubic-bezier(.65,0,.2,1); }
+  ::view-transition-old(szn-photo), ::view-transition-new(szn-photo) { height: 100%; object-fit: cover; }
+  ::view-transition-group(szn-header) { animation-duration: 300ms; }
+  @keyframes sznOut { to { opacity: 0; } }
+  @keyframes sznIn { from { opacity: 0; transform: translateY(14px); } }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}
