@@ -1050,7 +1050,7 @@ body.has-overlay { overflow: hidden; }
 .hero .link-arrow, .hero .u-hover, .tile .u-hover, .tile .link-arrow, .site-footer--evening .link-arrow, .site-footer--evening .u-hover { background-image: linear-gradient(currentColor, currentColor); }
 </style>
 <style>html[data-season='winter']{--season-dot:#6E7A86}html[data-season='spring']{--season-dot:#8F9A76}html[data-season='summer']{--season-dot:#C2953C}html[data-season='autumn']{--season-dot:#9A4B2A}</style>
-<script>(function(){var B=['fusion','rings','ripple','contours','none'],b='fusion';try{var q=new URLSearchParams(location.search).get('brand');if(B.indexOf(q)>-1){b=q;localStorage.setItem('pvBrand',q);}else{var v=localStorage.getItem('pvBrand');if(B.indexOf(v)>-1)b=v;}}catch(e){}document.documentElement.setAttribute('data-brand',b);window.PV_BRANDS=B;})();</script><link rel="icon" type="image/png" sizes="32x32" data-brand-icon="favicon-32"><link rel="icon" type="image/png" sizes="192x192" data-brand-icon="favicon-192"><link rel="apple-touch-icon" data-brand-icon="apple-touch-icon-180"><script>(function(){var b=document.documentElement.getAttribute('data-brand');document.querySelectorAll('[data-brand-icon]').forEach(function(l){l.href='img/brand/'+(b==='none'?'fusion':b)+'/'+l.getAttribute('data-brand-icon')+'.png';});})();</script><script>try{if(localStorage.getItem('pvLook')!=='current')document.documentElement.classList.add('look-brown');}catch(e){}</script><script>document.documentElement.setAttribute('data-season',['winter','winter','spring','spring','spring','summer','summer','summer','autumn','autumn','autumn','winter'][new Date().getMonth()]);try{var h=location.hash.replace('#','');if((h===''||h==='home')&&!sessionStorage.getItem('szndIntro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){sessionStorage.setItem('szndIntro','1');document.documentElement.classList.add('intro-on');}else document.documentElement.classList.add('intro-seen');}catch(e){document.documentElement.classList.add('intro-seen');}</script>
+<script>(function(){var B=['fusion','rings','ripple','contours','none'],b='fusion';try{var q=new URLSearchParams(location.search).get('brand');if(B.indexOf(q)>-1){b=q;localStorage.setItem('pvBrand',q);}else{var v=localStorage.getItem('pvBrand');if(B.indexOf(v)>-1)b=v;}}catch(e){}document.documentElement.setAttribute('data-brand',b);window.PV_BRANDS=B;})();</script><link rel="icon" type="image/png" sizes="32x32" data-brand-icon="favicon-32"><link rel="icon" type="image/png" sizes="192x192" data-brand-icon="favicon-192"><link rel="apple-touch-icon" data-brand-icon="apple-touch-icon-180"><script>(function(){var b=document.documentElement.getAttribute('data-brand');document.querySelectorAll('[data-brand-icon]').forEach(function(l){l.href='img/brand/'+(b==='none'?'fusion':b)+'/'+l.getAttribute('data-brand-icon')+'.png';});})();</script><script>(function(){var v='on';try{var q=new URLSearchParams(location.search).get('photos');if(q==='off'||q==='on'){v=q;localStorage.setItem('pvPhotos',q);}else if(localStorage.getItem('pvPhotos')==='off')v='off';}catch(e){}document.documentElement.setAttribute('data-photos',v);})();</script><script>try{if(localStorage.getItem('pvLook')!=='current')document.documentElement.classList.add('look-brown');}catch(e){}</script><script>document.documentElement.setAttribute('data-season',['winter','winter','spring','spring','spring','summer','summer','summer','autumn','autumn','autumn','winter'][new Date().getMonth()]);try{var h=location.hash.replace('#','');if((h===''||h==='home')&&!sessionStorage.getItem('szndIntro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){sessionStorage.setItem('szndIntro','1');document.documentElement.classList.add('intro-on');}else document.documentElement.classList.add('intro-seen');}catch(e){document.documentElement.classList.add('intro-seen');}</script>
 <style>
 /* =====================================================================
    v5: calmer type, the shop above the fold, the About hero with the logo,
@@ -1455,7 +1455,7 @@ input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webki
 <!-- HOME -->
 <div class="view" data-view="home">
   <section class="hero hero--full hero--light hero--bottom-left hero--first hero--develop" data-develop>
-    <div class="hero__media"><img class="hero__media-el hero__media-el--mobile" src="img/hero-mobile.webp" alt="" fetchpriority="high"><img class="hero__media-el hero__media-el--desktop" src="img/hero-desktop.webp" alt="" fetchpriority="high" style="object-position:50% 30%"><span class="hero__shade" style="--shade: .35"></span></div>
+    <div class="hero__media"><div class="hero__wall" aria-hidden="true"><span class="brand-mark"></span></div><img class="hero__media-el hero__media-el--mobile" src="img/hero-mobile.webp" alt="" fetchpriority="high"><img class="hero__media-el hero__media-el--desktop" src="img/hero-desktop.webp" alt="" fetchpriority="high" style="object-position:50% 30%"><span class="hero__shade" style="--shade: .35"></span></div>
     <a class="hero__cover-link" href="#shop" tabindex="-1" aria-hidden="true"></a>
     <div class="hero__content">
       <p class="hero__count" data-countdown data-start="2026-11-06 10:00" data-end="2026-11-12 23:59" data-before="season 01 opens in" data-during="season 01 is open" data-after="made to order, ships in 1–2 weeks" hidden><span class="hero__count-dot" aria-hidden="true"></span><span data-cd-label></span><span class="hero__count-time" data-cd-time></span></p>
@@ -2050,6 +2050,7 @@ window.PV_ICONS={"plus": "<svg class=\"icon icon--plus\" viewBox=\"0 0 24 24\" w
     var p = byId[id] || byId['hoodie-brown'];
     var v = document.querySelector('.view[data-view="product"]');
     var i = P.indexOf(p);
+    v.setAttribute('data-color', p.color);
     var q = function (sel) { return v.querySelector(sel); };
     q('.product__info .label').textContent = 'season 01 · no. ' + ('0' + (i + 1)).slice(-2);
     q('.product__title').innerHTML = TYPE[p.type] + ' <em>[name TBD]</em>';
@@ -3303,6 +3304,11 @@ window.PV_ICONS={"plus": "<svg class=\"icon icon--plus\" viewBox=\"0 0 24 24\" w
     <span class="pv-look__label">look</span>
     <button type="button" data-pv-look="current">Current</button>
     <button type="button" data-pv-look="brown">New brown</button>
+  </div>
+  <div class="pv-look__row">
+    <span class="pv-look__label">photos</span>
+    <button type="button" data-pv-photos="on">On</button>
+    <button type="button" data-pv-photos="off">None yet</button>
     <button type="button" class="pv-look__replay" data-pv-replay title="Play the opening screen again">Replay opening</button>
   </div>
 </div>
@@ -3315,6 +3321,26 @@ window.PV_ICONS={"plus": "<svg class=\"icon icon--plus\" viewBox=\"0 0 24 24\" w
 .pv-look button i { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
 .pv-look button[aria-pressed="true"] { background: #F7F4EE; color: #111; opacity: 1; }
 .pv-look .pv-look__replay { opacity: 0.6; text-decoration: underline; text-underline-offset: 3px; }
+/* Photos: none yet (preview of the shop before the shoot) */
+html:not([data-photos="off"]) .hero__wall { display: none; }
+html[data-photos="off"] :is(.hero__media-el, .about-hero__img, .index__img, .spread__img, img.pv-img, .story-hold img) { visibility: hidden !important; }
+html[data-photos="off"] .hero__shade { display: none; }
+html[data-photos="off"] :is(.card__media, .gallery__zoom, .lightbox__item, .mega__promo > span, .post-card__media, .mini-line__img, .cart-line__img, .pair__img, .predictive__img, .colors__item, .sticky-buy__img, .spread__media, [data-pv-index-media]) { background: var(--tone, #E8E0D2) !important; }
+html[data-photos="off"] :is(.card__media, .gallery__zoom, .spread__media)::after { content: ""; position: absolute; left: 50%; top: 50%; width: 28%; aspect-ratio: var(--mark-ar, 1); transform: translate(-50%, -50%); background: var(--tone-ink, #6E4535); opacity: 0.16; -webkit-mask: var(--brand-mark) center / contain no-repeat; mask: var(--brand-mark) center / contain no-repeat; pointer-events: none; }
+html[data-photos="off"] .gallery__zoom { display: block; width: 100%; aspect-ratio: 4 / 5; }
+html[data-photos="off"] .about-hero { background: var(--about-bg); }
+html[data-photos="off"] .about-hero::before { content: ""; position: absolute; z-index: 0; pointer-events: none; height: min(130vh, 130vw); aspect-ratio: var(--mark-ar, 1); right: -14vw; bottom: -38%; background: var(--about-logo, #F7F4EE); opacity: 0.08; -webkit-mask: var(--brand-mark) center / contain no-repeat; mask: var(--brand-mark) center / contain no-repeat; }
+html[data-photos="off"] .note--photo { color: var(--tone-ink, #6E4535); text-shadow: none; }
+html[data-photos="off"] [data-color="black"] { --tone: #2B2724; --tone-ink: #F7F4EE; }
+html[data-photos="off"] [data-color="brown"] { --tone: #6E4535; --tone-ink: #F7F4EE; }
+html[data-photos="off"] [data-color="acid wash"] { --tone: #8C8883; --tone-ink: #F7F4EE; }
+html[data-photos="off"] [data-color="off white"] { --tone: #E8E0D2; --tone-ink: #6E4535; }
+html[data-photos="off"] .colors__item[title="black"] { --tone: #2B2724; }
+html[data-photos="off"] .colors__item[title="brown"] { --tone: #6E4535; }
+html[data-photos="off"] .colors__item[title="acid wash"] { --tone: #8C8883; }
+html[data-photos="off"] .colors__item[title="off white"] { --tone: #E8E0D2; }
+html[data-photos="off"] .spread__media { --tone: #6E4535; --tone-ink: #F7F4EE; overflow: hidden; }
+html[data-photos="off"] .spread__media::after { width: 120%; left: 62%; top: 58%; opacity: 0.1; }
 .pv-look__toggle { opacity: 1 !important; padding: 7px 12px 7px 10px !important; }
 .pv-look__toggle i { background: var(--brand-season, #A4502F); }
 .pv-look[data-open="false"] { padding: 4px; }
@@ -3354,6 +3380,14 @@ window.PV_ICONS={"plus": "<svg class=\"icon icon--plus\" viewBox=\"0 0 24 24\" w
   };
   document.querySelectorAll('[data-pv-look]').forEach(function (b) { b.addEventListener('click', function () { setLook(b.getAttribute('data-pv-look')); }); });
   document.querySelectorAll('[data-pv-brand]').forEach(function (b) { b.addEventListener('click', function () { setBrand(b.getAttribute('data-pv-brand')); }); });
+  var setPhotos = function (v) {
+    root.setAttribute('data-photos', v);
+    try { localStorage.setItem('pvPhotos', v); } catch (e) {}
+    press('data-pv-photos', v);
+    window.dispatchEvent(new Event('resize'));
+  };
+  document.querySelectorAll('[data-pv-photos]').forEach(function (b) { b.addEventListener('click', function () { setPhotos(b.getAttribute('data-pv-photos')); }); });
+  press('data-pv-photos', root.getAttribute('data-photos'));
   var r = document.querySelector('[data-pv-replay]');
   if (r) r.addEventListener('click', replay);
   var v = 'brown'; try { v = localStorage.getItem('pvLook') || 'brown'; } catch (e) {}

@@ -97,3 +97,42 @@ p, li, .card__line, .rte, .product__story { text-wrap: pretty; }
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
 }
+
+/* ---------- 7. Brand wall: a first screen without a photo ---------- */
+/* Shopify: the hero shows this when it has no image or video, or when "Use the brand wall"
+   is ticked. Upload a photo (and untick) to go back. */
+.hero__wall { position: absolute; inset: 0; overflow: hidden; background: var(--wall, var(--brown, #6E4535)); color: var(--wall-ink, #F7F4EE); }
+.hero__wall .brand-mark { position: absolute; height: min(150vh, 150vw); top: 50%; right: -16vw; transform: translateY(-50%); opacity: 0.1; }
+.hero__wall::after { content: ""; position: absolute; inset: 0; background: radial-gradient(120% 90% at 85% 50%, transparent 0 40%, rgba(30, 26, 23, 0.28) 100%); pointer-events: none; }
+@media (max-width: 749px) {
+  .hero__wall .brand-mark { height: 135vw; right: auto; left: 58%; top: 36%; transform: translate(-50%, -50%); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero__wall .brand-mark { animation: wallIn 2.4s cubic-bezier(.2,.7,.1,1) both, wallBreath 16s ease-in-out 2.4s infinite alternate; }
+  @keyframes wallIn { from { opacity: 0; scale: 0.92; } }
+  @keyframes wallBreath { to { scale: 1.035; rotate: 2deg; } }
+}
+.hero:has(.hero__wall) .hero__shade { display: none; }
+
+/* About hero with no photo: brown, the logo, and the mark large in the corner. */
+.about-hero:not(:has(.about-hero__img))::before, .about-hero--wall::before {
+  content: ""; position: absolute; z-index: 0; pointer-events: none;
+  height: min(130vh, 130vw); aspect-ratio: var(--mark-ar, 1); right: -14vw; bottom: -38%;
+  background: var(--about-logo, #F7F4EE); opacity: 0.08;
+  -webkit-mask: var(--brand-mark) center / contain no-repeat; mask: var(--brand-mark) center / contain no-repeat;
+}
+html[data-brand='none'] .about-hero::before { display: none; }
+
+/* Products with no photo yet: a calm panel in the garment's colour with the mark, not an empty box. */
+.card__media .placeholder, .gallery__item .placeholder { position: relative; background: var(--tone, #E8E0D2); }
+.card__media .placeholder::after, .gallery__item .placeholder::after {
+  content: ""; position: absolute; left: 50%; top: 50%; width: 30%; aspect-ratio: var(--mark-ar, 1); transform: translate(-50%, -50%);
+  background: var(--tone-ink, #6E4535); opacity: 0.16;
+  -webkit-mask: var(--brand-mark) center / contain no-repeat; mask: var(--brand-mark) center / contain no-repeat;
+}
+.gallery__item .placeholder { aspect-ratio: 4 / 5; height: auto; }
+.spread__media .placeholder { position: relative; display: block; min-height: 60vh; overflow: hidden; background: var(--brown, #6E4535); }
+.spread__media .placeholder::after {
+  content: ""; position: absolute; left: 62%; top: 58%; width: 120%; aspect-ratio: var(--mark-ar, 1); transform: translate(-50%, -50%);
+  background: #F7F4EE; opacity: 0.1; -webkit-mask: var(--brand-mark) center / contain no-repeat; mask: var(--brand-mark) center / contain no-repeat;
+}
